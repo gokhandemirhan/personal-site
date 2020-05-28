@@ -1,14 +1,14 @@
 'use strict';
 
 module.exports = {
-  url: 'https://lumen.netlify.com',
+  url: 'https://gokhandemirhan.dev',
   pathPrefix: '/',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+  title: 'Personal site',
+  subtitle: 'Gokhan Demirhan',
   copyright: '© All rights reserved.',
   disqusShortname: '',
   postsPerPage: 4,
-  googleAnalyticsId: 'UA-73379983-2',
+  googleAnalyticsId: 'UA-50602512-2',
   useKatex: false,
   menu: [
     {
@@ -25,15 +25,15 @@ module.exports = {
     }
   ],
   author: {
-    name: 'John Doe',
-    photo: '/photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    name: 'Gökhan Demirhan',
+    photo: '/profile.jpg',
+    bio: 'I am a front-end engineer working at Booking.com in Amsterdam, Netherlands.',
     contacts: {
       email: '',
       facebook: '#',
       telegram: '#',
-      twitter: '#',
-      github: '#',
+      twitter: '_gokhandemirhan',
+      github: 'gokhandemirhan',
       rss: '',
       vkontakte: '',
       linkedin: '#',
