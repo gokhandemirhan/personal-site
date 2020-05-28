@@ -15,35 +15,35 @@ module.exports = {
       label: 'Articles',
       path: '/'
     },
-    {
-      label: 'About me',
-      path: '/pages/about'
-    },
-    {
-      label: 'Contact me',
-      path: '/pages/contacts'
-    }
+    // {
+    //   label: 'About me',
+    //   path: '/pages/about'
+    // },
+    // {
+    //   label: 'Contact me',
+    //   path: '/pages/contacts'
+    // }
   ],
   author: {
     name: 'Gökhan Demirhan',
     photo: '/profile.jpg',
     bio: 'I am a front-end engineer working at Booking.com in Amsterdam, Netherlands.',
     contacts: {
-      email: '',
-      facebook: '#',
-      telegram: '#',
+      // email: '',
+      // facebook: '#',
+      // telegram: '#',
       twitter: '_gokhandemirhan',
       github: 'gokhandemirhan',
-      rss: '',
-      vkontakte: '',
-      linkedin: '#',
-      instagram: '#',
-      line: '',
-      gitlab: '',
-      weibo: '',
-      codepen: '',
-      youtube: '',
-      soundcloud: '',
+      // rss: '',
+      // vkontakte: '',
+      // linkedin: '#',
+      // instagram: '#',
+      // line: '',
+      // gitlab: '',
+      // weibo: '',
+      // codepen: '',
+      // youtube: '',
+      // soundcloud: '',
     }
   }
 };
