@@ -3,7 +3,7 @@ template: post
 title: Finally started with Gatsby JS
 slug: finally-started-with-gatsbyjs
 draft: false
-date: 2020-05-28
+date: 2020-05-29T19:50:07.207Z
 description: New site for new ideas.
 category: Web Development
 tags:
