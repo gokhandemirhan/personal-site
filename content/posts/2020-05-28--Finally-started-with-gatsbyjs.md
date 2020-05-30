@@ -4,7 +4,10 @@ title: Finally started with Gatsby JS
 slug: finally-started-with-gatsbyjs
 draft: false
 date: 2020-05-29T19:50:07.207Z
-description: New site for new ideas.
+description: This very site is built with Gatsby JS and living in Netlify. I was
+  thinking about to start learning gatsby and the quarantine period helped me.
+  What Gatsby sites are actually React web applications thus it fast and
+  efficient, and perfectly timed with my React learning period as well.
 category: Web Development
 tags:
   - Design
