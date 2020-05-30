@@ -30,20 +30,11 @@ module.exports = {
     bio: 'I am a front-end engineer working at Booking.com in Amsterdam, Netherlands.',
     contacts: {
       email: 'hello@gokhandemirhan.dev',
-      facebook: '#',
-      telegram: '#',
       twitter: '_gokhandemirhan',
       github: 'gokhandemirhan',
-      rss: '',
-      vkontakte: '',
       linkedin: 'gokhandemirhan',
-      instagram: '#',
-      line: '',
-      gitlab: '',
-      weibo: '',
       codepen: 'gokhandemirhan',
-      youtube: '',
-      soundcloud: '',
+   
     }
   }
 };
