@@ -1,22 +1,30 @@
 // @flow strict
-import React from 'react';
-import type { Entry, WidgetFor } from '../../types';
+import React from "react";
+import type { Entry, WidgetFor } from "../../types";
+import { PostTemplate } from "../../templates/post-template";
 
 type Props = {
   entry: Entry,
-  widgetFor: WidgetFor
+  widgetFor: WidgetFor,
 };
 
 const PostPreview = ({ entry, widgetFor }: Props) => {
-  const body = widgetFor('body');
-  const title = entry.getIn(['data', 'title']);
+  const body = widgetFor("body");
+  const title = entry.getIn(["data", "title"]);
+  const tags = entry.getIn(["data", "tags"]);
+  const description = entry.getIn(["data", "description"]);
+  const data = {
+    markdownRemark: {
+      frontmatter: {
+        description: description,
+        tags: tags,
+        title: title,
+      },
+      html: body,
+    },
+  };
 
-  return (
-    <div className="post">
-      <h1 className="post__title">{title}</h1>
-      <div className="post__body">{body}</div>
-    </div>
-  );
+  return <PostTemplate data={data} />;
 };
 
 export default PostPreview;
