@@ -1,25 +1,20 @@
 // @flow strict
-import React from "react";
-import type { Entry, WidgetFor } from "../../types";
-import styles from '../../components/Post/Post.module.scss';
+import React from 'react';
+import type { Entry, WidgetFor } from '../../types';
 
 type Props = {
   entry: Entry,
-  widgetFor: WidgetFor,
+  widgetFor: WidgetFor
 };
 
 const PostPreview = ({ entry, widgetFor }: Props) => {
-  const body = widgetFor("body");
-  const title = entry.getIn(["data", "title"]);
+  const body = widgetFor('body');
+  const title = entry.getIn(['data', 'title']);
 
   return (
-    <div className={styles['post']}>
-      <Link className={styles['post__home-button']} to="/">All Articles</Link>
-
-      <div className={styles['post__content']}>
-        <Content body={body} title={title} />
-      </div>
-
+    <div className="post">
+      <h1 className="post__title">{title}</h1>
+      <div className="post__body">{body}</div>
     </div>
   );
 };
