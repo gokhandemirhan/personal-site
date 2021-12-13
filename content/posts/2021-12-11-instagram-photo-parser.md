@@ -17,8 +17,6 @@ tags:
   - express
   - cors
 ---
-
-
 Today we are going to create a web application that enables user to see the original photo that is posted on Instagram. First we create a web service that sends a request to the embedded version of that photo with a given image url, then the service is gonna parse the page it gets and finds the image url from there. In order to bypass Instagram CORS rules we will use some npm modules to be able to display the photo on our page.
 
 ## Server side
@@ -35,7 +33,7 @@ The modules are pretty self explanatory but I want to highlight **cors** and **p
 
 Now it is time to write the parser module.
 
-```
+```javascript
 const axios = require("axios");
 const { parse } = require("node-html-parser");
 
@@ -65,7 +63,7 @@ As you can see, the function requests the image from Instagram, passes this resp
 
 Line 14 returns the image source but prefixed with our another endpoint **proxy**. We will be looking into that next. Here is our index.js file which is the main file for our server
 
-```
+```javascript
 const express = require("express");
 const cors = require("cors");
 const proxy = require("pass-cors");
@@ -98,13 +96,11 @@ app.listen(port, () => {
 
 On line 14 the enpoint '/proxy' handles the request using the **pass-cors** module.
 
-
-
 ## Client side
 
 Client side is a simple *create-react-app* that only consists of a form containing an input. If request is valid and contains a image url, our react application is just going to display the returned image.
 
-```
+```javascript
 import React from "react";
 import { useState } from "react";
 
@@ -141,5 +137,4 @@ function App() {
 }
 
 export default App;
-
 ```
