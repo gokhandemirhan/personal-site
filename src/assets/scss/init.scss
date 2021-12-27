@@ -4,13 +4,48 @@
 @import "mixins";
 @import "base";
 
-
 .gatsby-highlight-code-line {
-    background-color: #024f55;
-    display: block;
-    margin-right: -1em;
-    margin-left: -1em;
-    padding-right: 1em;
-    padding-left: 0.75em;
-    border-left: 0.25em solid #f99;
-  }
+  background-color: #024f55;
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid #f99;
+}
+
+.gatsby-code-title {
+  display: block;
+  position: relative;
+  background: #272822;
+  width: 100%;
+  top: 13px;
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
+.gatsby-code-title span {
+  display: inline;
+  position: relative;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  color: #eee;
+  background: #777;
+  border-top-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  padding: 3px 6px;
+  top: -1px;
+}
+
+.gatsby-code-button {
+  position: absolute;
+  right: 20px;
+  top: -19px;
+  color: black;
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+  padding: 0px 6px;
+  font-size: 14px;
+}
+.gatsby-code-button-icon {
+  fill: white;
+}

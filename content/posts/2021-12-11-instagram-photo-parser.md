@@ -33,7 +33,7 @@ The modules are pretty self explanatory but I want to highlight **cors** and **p
 
 Now it is time to write the parser module.
 
-```javascript{14}
+```javascript{14}:title=parser.js
 const axios = require("axios");
 const { parse } = require("node-html-parser");
 
@@ -63,7 +63,7 @@ As you can see, the function requests the image from Instagram, passes this resp
 
 Line 14 returns the image source but prefixed with our another endpoint **proxy**. We will be looking into that next. Here is our index.js file which is the main file for our server
 
-```javascript{14}
+```javascript{14}:title=index.js
 const express = require("express");
 const cors = require("cors");
 const proxy = require("pass-cors");
@@ -100,7 +100,7 @@ On line 14 the enpoint '/proxy' handles the request using the **pass-cors** modu
 
 Client side is a simple *create-react-app* that only consists of a form containing an input. If request is valid and contains a image url, our react application is just going to display the returned image.
 
-```javascript
+```javascript:title=App.js
 import React from "react";
 import { useState } from "react";
 

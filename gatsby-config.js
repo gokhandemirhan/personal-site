@@ -123,10 +123,20 @@ module.exports = {
             options: { wrapperStyle: "margin-bottom: 1.0725rem" },
           },
           "gatsby-remark-autolink-headers",
+          "gatsby-remark-prismjs-title",
+          {
+            resolve: "gatsby-remark-code-buttons",
+            options: {
+              svgIcon: "Copy",
+              tooltipText: "Click to copy code",
+              toasterText: "Copied to clipboard",
+            },
+          },
           {
             resolve: "gatsby-remark-prismjs",
             options: {
               showLineNumbers: true,
+              noInlineHighlight: false,
             },
           },
           "gatsby-remark-copy-linked-files",
