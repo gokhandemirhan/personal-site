@@ -25,15 +25,15 @@ Server side is a simple node express app that has only two endpoints. It is resp
 
 Start by installing the required modules:
 
-> ```javascript
-> yarn add axios cors express node-html-parser pass-cors
-> ```
+```bash
+yarn add axios cors express node-html-parser pass-cors
+```
 
 The modules are pretty self explanatory but I want to highlight **cors** and **pass-cors**module here which will allow us to bypass the same origin rule of Instagram so that the image can be shown.
 
 Now it is time to write the parser module.
 
-```javascript
+```javascript{14}
 const axios = require("axios");
 const { parse } = require("node-html-parser");
 
@@ -63,7 +63,7 @@ As you can see, the function requests the image from Instagram, passes this resp
 
 Line 14 returns the image source but prefixed with our another endpoint **proxy**. We will be looking into that next. Here is our index.js file which is the main file for our server
 
-```javascript
+```javascript{14}
 const express = require("express");
 const cors = require("cors");
 const proxy = require("pass-cors");
