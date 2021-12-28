@@ -1,7 +1,7 @@
 ---
 template: post
 title: A day with gatsby, bash and opensource
-slug: configure-gatsby-auto-publish
+slug: configure-gatsby-developer-blog
 draft: false
 date: 2021-12-28T00:20:23.693Z
 description: This is a story of how I spend my last Sunday configuring my
