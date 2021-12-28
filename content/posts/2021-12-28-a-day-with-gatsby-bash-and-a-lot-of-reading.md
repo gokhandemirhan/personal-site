@@ -185,6 +185,6 @@ Note that I am not using a SVG icon as the plugin has it by default, instead I'v
 ```
 
 ### Summary
-As you can see, Gatsby is really powerful and a huge plugin ecosystem around it thanks to opensource. On next post I will explain how I connected this blog wit Netlify CMS, autoposting to dev.to and hashnode. 
+As you can see, Gatsby is really powerful and has a huge plugin ecosystem around it thanks to opensource. On next post I will explain how I connected this blog with Netlify CMS, autoposting to dev.to and hashnode. 
 
 Thanks for reading!
