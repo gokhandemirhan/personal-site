@@ -14,6 +14,10 @@
   border-left: 0.25em solid #f99;
 }
 
+.gatsby-highlight pre[class*="language-"] {
+  padding: 0;
+}
+
 .gatsby-code-title {
   display: block;
   position: relative;
@@ -34,6 +38,10 @@
   border-bottom-right-radius: 0.3em;
   padding: 3px 6px;
   top: -1px;
+}
+
+.line-numbers .line-numbers-rows {
+  padding: 0 0 0 6px;
 }
 
 .gatsby-code-button {

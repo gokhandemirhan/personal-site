@@ -29,11 +29,13 @@ I am using a starter theme for my blog and sadly it didn't have the code block h
 
 We all know what syntax highlighting is and how it is important for readers. Using [gatsby-remark-prismjs](https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/) makes it really easy to have it.
 
-1. Install it with your favourite package 
+##### Install it with your favourite package 
+
 ```bash
 npm install gatsby-transformer-remark gatsby-remark-prismjs prismjs
 ```
-2. Edit your configuration file
+##### Edit your configuration file
+
 ```js{9:10}:title=gatsby-config.js
 plugins: [
   {
@@ -54,7 +56,7 @@ plugins: [
 ```
 You can find the full configuration on the plugins page. But here all I need is to show the line numbers as I want them always visible, and noInlineHighlight to false for inline highlights that I will talk about in a minute.
 
-3. Set your theme or create your own.
+##### Set your theme or create your own.
 
 ```js:title=gatsby-browser.js
 ... other CSS files
@@ -66,7 +68,8 @@ I chosed the okaidia theme here as it is dark and my favourite. You can see all 
 
 Line numbers are important when sharing code as well as highlighting that line to point out what is added/removed. In order to achieve this the same plugins helps us again by wrapping the desired line in a class you can style however you want. 
 
-1. Add a highlighting style for the line. I am gonna use my init.scss file for that since I am already including it on my gatsby-browser.js file
+##### Add a highlighting style for the line. I am gonna use my init.scss file for that since I am already including it on my gatsby-browser.js file
+
 
 ```css
 .gatsby-highlight-code-line {
@@ -80,7 +83,8 @@ Line numbers are important when sharing code as well as highlighting that line t
 }
 ```
 
-2. Add default styles for line numbers. This is how my gatsby-browser.js file looks like after I've included the default styles for line numbers
+##### Add default styles for line numbers. This is how my gatsby-browser.js file looks like after I've included the default styles for line numbers
+
 ```js{4}:title=gatsby-browser.js
 require("./src/assets/scss/init.scss");
 require("prismjs/themes/prism-okaidia.css");
@@ -100,12 +104,16 @@ A quick search on Gatsby plugin directory showed on two plugins for them
 
 They are almost the same plugin but first one wraps the title inside a span tag which I needed for better styling, so I went ahead with it. [Here](https://github.com/otanu/gatsby-remark-prismjs-title) is the repository.
 
-1. Again get it from npm
+##### Again get it from npm
+
+
 ```bash
 npm install gatsby-remark-prismjs-title --save-dev
 ```
-2. Set your gatsby-config.js file
-```js:title=gatsby-config.js
+##### Set your gatsby-config.js file
+
+
+```javascript:title=gatsby-config.js
 plugins: [
   {
     resolve: 'gatsby-transformer-remark',
@@ -118,7 +126,7 @@ plugins: [
   }
 ]
 ```
-3. Add the custom CSS (I think you start to get the hang of the procedure now). I have customized my CSS a bit. Feel free to copy.
+##### Add the custom CSS (I think you start to get the hang of the procedure now). I have customized my CSS a bit. Feel free to copy.
 
 ```css
 .gatsby-code-title {
@@ -148,11 +156,16 @@ plugins: [
 
 Again we are going to use a plugin. This time it is [https://www.gatsbyjs.com/plugins/gatsby-remark-code-buttons/](https://www.gatsbyjs.com/plugins/gatsby-remark-code-buttons/).
 
-1. Install
+##### Install
+
+
 ```bash
 npm install gatsby-remark-code-buttons --save-dev
 ```
-2. Configure
+
+##### Configure
+
+
 ```js{4}:title=gatsby-config.js
 {
     resolve: "gatsby-remark-code-buttons",
@@ -166,7 +179,7 @@ npm install gatsby-remark-code-buttons --save-dev
 
 Note that I am not using a SVG icon as the plugin has it by default, instead I've just wrote `Copy` for the svgIcon field which outputs it as a text. Tooltip options are the ones visible when user hover over the button and when clicked.
 
-3. Custom CSS (again modified by my needs)
+##### Custom CSS (again modified by my needs)
 
 ```css
 .gatsby-code-button {
