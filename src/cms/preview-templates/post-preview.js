@@ -2,7 +2,7 @@
 import React from "react";
 import type { Entry, WidgetFor } from "../../types";
 
-import "./main.css";
+import "./custom-post-preview.css";
 
 type Props = {
   entry: Entry,
