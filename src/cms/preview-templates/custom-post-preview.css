@@ -304,3 +304,9 @@ pre[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none;
 }
+
+p code {
+  color: white;
+  padding: 0px 4px;
+  border-radius: 4px;
+}
