@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  url: 'https://gokhandemirhan.dev',
-  pathPrefix: '/',
-  title: 'Personal site',
-  subtitle: 'Gokhan Demirhan',
-  copyright: '© All rights reserved.',
-  disqusShortname: '',
-  postsPerPage: 4,
-  googleAnalyticsId: 'UA-50602512-2',
+  url: "https://gokhandemirhan.dev",
+  pathPrefix: "/",
+  title: "Breaking Changes",
+  subtitle: "Gokhan Demirhan",
+  copyright: "© All rights reserved.",
+  disqusShortname: "",
+  postsPerPage: 5,
+  googleAnalyticsId: "UA-50602512-2",
   useKatex: false,
   menu: [
     {
-      label: 'Articles',
-      path: '/'
+      label: "Articles",
+      path: "/",
     },
     // {
     //   label: 'About me',
@@ -25,16 +25,15 @@ module.exports = {
     // }
   ],
   author: {
-    name: 'Gökhan Demirhan',
-    photo: '/profile.jpg',
-    bio: 'I am a front-end engineer working at Booking.com in Amsterdam, Netherlands.',
+    name: "Gökhan Demirhan",
+    photo: "/profile.jpg",
+    bio: "I am a front-end engineer working at Booking.com in Amsterdam, Netherlands.",
     contacts: {
-      email: 'hello@gokhandemirhan.dev',
-      twitter: '_gokhandemirhan',
-      github: 'gokhandemirhan',
-      linkedin: 'gokhandemirhan',
-      codepen: 'gokhandemirhan',
-   
-    }
-  }
+      email: "hello@gokhandemirhan.dev",
+      twitter: "_gokhandemirhan",
+      github: "gokhandemirhan",
+      linkedin: "gokhandemirhan",
+      codepen: "gokhandemirhan",
+    },
+  },
 };
