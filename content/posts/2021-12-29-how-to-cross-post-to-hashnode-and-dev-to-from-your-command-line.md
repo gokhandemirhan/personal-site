@@ -2,7 +2,7 @@
 template: post
 title: How to cross-post to hashnode and dev.to from your command line
 slug: cross-post-to-hashnode-and-devto
-draft: true
+draft: false
 date: 2021-12-29T19:27:52.374Z
 description: Hashnode and Dev.to are great platforms for development blogging
   each has their own pros/cons. The biggest plus is that they have a community
