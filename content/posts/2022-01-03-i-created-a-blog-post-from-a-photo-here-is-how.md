@@ -151,10 +151,9 @@ There are not many OCR libraries around there and the successfull ones are from 
 
 ![](/media/photo_2022-01-01_23-23-11.jpg)
 
-
 In order to extract text from my photo I've decided to use [Google Vision](https://cloud.google.com/vision). You can see how well it is working by going to the link and using the photo uploader there. Or better, just open your Google Translate or Google Lens application. Have you ever thanked an AI before? I did.
 
-Following the [docs](https://cloud.google.com/vision/docs/setup) here, I've setup everything and will be using their Node.js library. I am not going into details of how to setup, but I want to show you how I am making the `service account keys` available to runtime. Running the backend project like shown is the easiest way.
+Following the [docs](https://cloud.google.com/vision/docs/setup) here, I've setup everything and will be using their Node.js library. I am not going into details of how to setup, but I want to show you how I am making the `service account keys` available to runtime. Running the backend project like shown is the easiest way. Google gives us free credits and 90 days to be able to test Vision, and then it is going to cost money. 
 
 ```bash
 $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
@@ -162,15 +161,23 @@ $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
 
 #### Vision, get ready!
 
--- GIF HERE --
+\-- GIF HERE --
 
 Here I am adding Google Vision and path module to the project. Path module will make it easier for us to handle filenames and extentions.
+
 ```bash
 yarn add @google-cloud/vision path
 ```
+
 Vision can detect text from almost any image. You can give it a URL or a file then it will do its magic and output the text inside. Here is our function to read the local image that has been uploaded to our `./public/` directory. You can follow [this](https://cloud.google.com/vision/docs/samples/vision-text-detection) tutorial from Google for more examples.
 
-```js{4,7}
+```js{9,12}
+// Imports the Google Cloud client library
+const vision = require('@google-cloud/vision');
+
+// Creates a client
+const client = new vision.ImageAnnotatorClient();
+
 const googleParse = async (path) => {
   // Read a local image as a text document
   console.log(path);
@@ -198,3 +205,90 @@ app.post('/upload', upload.single('file'), (req, res) => {
   });
 });
 ```
+#### Testing time
+![](/media/screen-capture-_1_.gif)
+
+It works! Thanks to Vision, we are able to see `Hello world. first blog post from text. Lets see if its working. This is my Lilly` text below the image. Notice how it even read the small red Lilly label on the bottom right of the page.
+
+#### Mark my words
+
+Now we are going to create a markdown file with the contents of the extracted text. Gatby uses frontmatter for metadata of the posts. They are essentially a key/value pairs on top of the file.
+```markdown
+---
+template: post
+title: Title of the post
+slug: how-it-will-look-like-on-url
+draft: false
+date: date/of/publish
+---
+```
+
+In order to create a file in the file system, we are going to require the `fs` module which is a shorthand for filesystem lol. `writeFile` method expects a directory to put the file, file contents, and a callback function to call when its done. In here our callback is not changed still returning the file and extracted text back to frontend.
+
+```js{11:25}
+const fs = require('fs');
+... //previous codes
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    const file = req.file;
+    if (!file) {
+      res.send(500);
+    }
+    const fileName = path.parse(file.filename);
+    googleParse('./public/' + fileName.base).then((text) => {
+    const content = text.split(' ');
+    const title = `${content[0]} ${content[1]}`;
+    const slug = title.join('-');
+    const date = new Date();
+
+      fs.writeFile(
+        `./blog/personal-site/content/posts/${fileName.name}`,
+        `---
+         template: post
+         title: ${title.toUpperCase()}
+         slug: ${slug}
+         draft: false
+         date: ${date.toISOString()}
+        ---
+     ${text} 
+      `,
+        () => {
+            res.send({ file, text });
+        }
+      );
+    });
+  });
+```
+I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` directory is where we put the file which is a clone of my blog repository in `backend` project file structure.
+
+For now, I am just getting the first two words as a title for simplicity, and generating slug from these words as well. For Gatsby to understand the date we need to format it `toISOString`.
+
+#### git pull, branch, add, commit, push
+There are two main modules to work with .git from Node.js; `nodegit` and `simple-git`. I've spend enough time with nodegit but coudn't make it read my credentials. I've switched to simple-git later on, and it is pretty simple.
+
+```bash
+yarn add simple-git
+```
+
+Quick and dirty function to do basic gitflow and push to a branch with added file.
+```js
+const simpleGit = require('simple-git'); //require simple-git
+const git = simpleGit('./blog/personal-site'); //create a git object from the repository
+
+const commitAndPush = async (branchName, commitMessage) => {
+  await git.checkout(['master']);
+  await git.pull('origin', 'master', { '--rebase': 'true' });
+  await git.checkout(['-b', branchName]);
+  await git.add('./*');
+  await git.commit(`SimpleGit commit: ${commitMessage}`);
+  const pushResult = await git.push(['--set-upstream', 'origin', branchName]);
+  return pushResult;
+};
+```
+You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to user to create a pullrequest. You can also modify this blog to just submit directly to the master, so no need for additional check. I have also added a simple `Uploading...` message using a state hook to frontend.
+
+#### Avengers, Assemble!
+
+Time to see how I've spent my weekend finally. Here is a demo, showing all the steps we covered so far and me creating a pull request.
+
+You can see the created post here!
