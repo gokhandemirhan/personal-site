@@ -178,7 +178,7 @@ yarn add @google-cloud/vision path
 
 Vision can detect text from almost any image. You can give it a URL or a file then it will do its magic and output the text inside. Here is our function to read the local image that has been uploaded to our `./public/` directory. You can follow [this](https://cloud.google.com/vision/docs/samples/vision-text-detection) tutorial from Google for more examples.
 
-```js{9,12}
+```js{10,13}
 // Imports the Google Cloud client library
 const vision = require('@google-cloud/vision');
 
@@ -198,9 +198,9 @@ const googleParse = async (path) => {
 };
 ```
 
-It is pretty easy with Vision as you have seen. Line 4 and 7 do the hard work for us. Let's call this function from our `upload` endpoint with the file path. When Vision returns the text we are sending it to the frontend now instead of our placeholder.
+It is pretty easy with Vision as you have seen. Line 10 and 13 do the hard work for us. Let's call this function from our `upload` endpoint with the file path. When Vision returns the text we are sending it to the frontend now instead of our placeholder.
 
-```js{6,7}
+```js{7:9}
 app.post('/upload', upload.single('file'), (req, res) => {
   const file = req.file;
   if (!file) {
@@ -273,7 +273,7 @@ ${text}
   });
 ```
 
-I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` the directory is where we put the file which is a clone of my blog repository in the `backend` project file structure.
+I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}.md` the directory is where we put the file which is a clone of my blog repository in the `backend` project file structure.
 
 For now, I am just getting the first word as a title for simplicity and generating slug from this word as well. For Gatsby to understand the date, we need to format it `toISOString`. Also, the pattern for a post file name is to include the date and an `.md` extension.
 
@@ -302,7 +302,7 @@ const commitAndPush = async (branchName, commitMessage) => {
 };
 ```
 
-You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to the user to create a pull request. You can also modify this blog to just submit directly to the master, so no need for additional checks. Let's connect this function in our upload endpoint and return the url.
+You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to the user to create a pull request. You can also modify this blog to just submit directly to the master, so no need for additional checks. Let's connect this function in our upload endpoint and return the url. `pfp` corresponds to `post from photo` if you wonder.
 
 ```js
 // fs.writeFile callback
