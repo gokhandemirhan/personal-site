@@ -76,4 +76,73 @@ const [photos, setPhotos] = useState([]);
   );
 ```
 
+### Backend
+
+Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a succcess message to the client.
+
+\-- GIF HERE --
+
+#### Ready, Set, Serve!
+
+Let's bootstrap a simple Node.js Express server to handle the job. Install `multer` as well to take care of the static files.
+
+```bash
+mkdir backend
+cd backend
+yarn init
+yarn add express cors multer
+```
+
+On a new index.js file, add the following for a simplest endpoint to receive and save a file. Don't forget to create `public` directory on your project as this is the path the files gonna be saved.
+
+```js{6,7:15,20}
+const express = require('express');
+const cors = require('cors');
+const multer = require('multer');
+
+const app = express().use('*', cors());
+const port = process.env.port || 3001;
+const DIR = './public/';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.get('/', async (req, res) => {
+  res.json('Hello world!, your server is working');
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    res.send(500);
+  }
+  res.send({ file, text:'Placeholder text for OCR' });
+});
+
+app.use(express.static('public'));
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
+
+On the highlighted rows, you can see how to initialize `multer` with the simplest configuration and make it ready. Now it's testing time. I will be uploading following image as I found that it is a testing image for an OCR library.
+
+##### Test image
+![](/media/eng_bw.png)
+
+##### Working!
+![](/media/screen-capture.gif)
+
+On the recording it is not showing the file picker popup as it was on my second screen, but I just select the test image and wait. Placing a loader icon here is a good idea!
+
+#### Okay Google, can you read this for me?
+
 
