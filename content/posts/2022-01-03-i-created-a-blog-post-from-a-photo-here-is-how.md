@@ -9,7 +9,7 @@ description: Last week I've come across a blog post by Ben Stokes. He was
   from a photo taken by their mobile phone. Although he gives a brief idea of
   how I wanted to explore more. After all, what else I can do better on the
   first of the new year anyway?
-category: web development, proof-of-concept
+category: blogging, web development, proof-of-concept
 ---
 Last week I've come across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He was explaining how he build a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how I wanted to explore more. After all, what else I can do better on the first of the new year anyway?
 
@@ -136,13 +136,65 @@ app.listen(port, () => {
 On the highlighted rows, you can see how to initialize `multer` with the simplest configuration and make it ready. Now it's testing time. I will be uploading following image as I found that it is a testing image for an OCR library.
 
 ##### Test image
+
 ![](/media/eng_bw.png)
 
 ##### Working!
+
 ![](/media/screen-capture.gif)
 
 On the recording it is not showing the file picker popup as it was on my second screen, but I just select the test image and wait. Placing a loader icon here is a good idea!
 
 #### Okay Google, can you read this for me?
 
+There are not many OCR libraries around there and the successfull ones are from big companies. First I have tried [tesseractjs](https://github.com/naptha/tesseract.js#tesseractjs) as it is opensource and free but it didn't parse my handwritten note well. The image I was using is actually from their library which works very good, but I think it is better for high quality photos or scans. Here you can see my handwritten note photo which is not really a high quality image (Also realized I made grammer mistakes, :( )
 
+![](/media/photo_2022-01-01_23-23-11.jpg)
+
+
+In order to extract text from my photo I've decided to use [Google Vision](https://cloud.google.com/vision). You can see how well it is working by going to the link and using the photo uploader there. Or better, just open your Google Translate or Google Lens application. Have you ever thanked an AI before? I did.
+
+Following the [docs](https://cloud.google.com/vision/docs/setup) here, I've setup everything and will be using their Node.js library. I am not going into details of how to setup, but I want to show you how I am making the `service account keys` available to runtime. Running the backend project like shown is the easiest way.
+
+```bash
+$ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
+```
+
+#### Vision, get ready!
+
+-- GIF HERE --
+
+Here I am adding Google Vision and path module to the project. Path module will make it easier for us to handle filenames and extentions.
+```bash
+yarn add @google-cloud/vision path
+```
+Vision can detect text from almost any image. You can give it a URL or a file then it will do its magic and output the text inside. Here is our function to read the local image that has been uploaded to our `./public/` directory. You can follow [this](https://cloud.google.com/vision/docs/samples/vision-text-detection) tutorial from Google for more examples.
+
+```js{4,7}
+const googleParse = async (path) => {
+  // Read a local image as a text document
+  console.log(path);
+  const [result] = await client.documentTextDetection(path);
+  console.log(result);
+  if (result) {
+    const fullTextAnnotation = result.fullTextAnnotation;
+    console.log(`Full text: ${fullTextAnnotation.text}`);
+    return fullTextAnnotation.text;
+  }
+};
+```
+
+It is pretty easy with Vision as you have seen. Line 4 and 7 do the hardwork for us. Lets call this function from our `upload` endpoint with the filepath. When Vision returns the text we are sending it to frontend now instead of our placeholder.
+
+```js{6,7}
+app.post('/upload', upload.single('file'), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    res.send(500);
+  }
+  const fileName = path.parse(file.filename);
+  googleParse('./public/' + fileName.base).then((text) => {
+    res.send({ file, text });
+  });
+});
+```
