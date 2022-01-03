@@ -18,11 +18,11 @@ tags:
   - git
   - blog
 ---
-Last week I've come across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He was explaining how he build a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how I wanted to explore more. After all, what else I can do better on the first of the new year anyway?
+Last week I came across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He explains how he built a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how he did it, I wanted to explore it myself. After all, what else I can do better on the first day of the new year anyway
 
 ### Brainstorming
 
-I want to integrate this into my own blog flow which uses Gatsby, Netlify, and Github. Maybe there are better ways but as a proof-of-concept here are the steps I've decided to take for the prototype:
+I want to integrate this into my blog flow which uses Gatsby, Netlify, and Github. Maybe there are better ways but as a proof-of-concept here are the steps I've decided to take for the prototype:
 
 * Create a web app that will post a photo
 * Create an endpoint to accept photo
@@ -85,9 +85,10 @@ const [photos, setPhotos] = useState([]);
 
 ### Backend
 
-Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a success message to the client.
+Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a success message to the client. Oh boy, there are a lot of places this can break.
 
 <iframe src="https://giphy.com/embed/zQ3Otg91WjqRKHcTUD" width="480" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/nerdist-marvel-tom-hiddleston-loki-zQ3Otg91WjqRKHcTUD">via GIPHY</a></p>
+
 
 #### Ready, Set, Serve!
 
@@ -168,8 +169,6 @@ $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
 
 #### Vision, get ready!
 
-<iframe src="https://giphy.com/embed/IyiycYppxmoR2GQ0D7" width="480" height="406" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/marvel-mcu-studios-IyiycYppxmoR2GQ0D7">via GIPHY</a></p>
-
 Here I am adding Google Vision and path module to the project. The path module will make it easier for us to handle filenames and extensions.
 
 ```bash
@@ -178,7 +177,7 @@ yarn add @google-cloud/vision path
 
 Vision can detect text from almost any image. You can give it a URL or a file then it will do its magic and output the text inside. Here is our function to read the local image that has been uploaded to our `./public/` directory. You can follow [this](https://cloud.google.com/vision/docs/samples/vision-text-detection) tutorial from Google for more examples.
 
-```js{9,12}
+```js{10,13}
 // Imports the Google Cloud client library
 const vision = require('@google-cloud/vision');
 
@@ -198,9 +197,9 @@ const googleParse = async (path) => {
 };
 ```
 
-It is pretty easy with Vision as you have seen. Line 4 and 7 do the hard work for us. Let's call this function from our `upload` endpoint with the file path. When Vision returns the text we are sending it to the frontend now instead of our placeholder.
+It is pretty easy with Vision as you have seen. Line 10 and 13 do the hard work for us. Let's call this function from our `upload` endpoint with the file path. When Vision returns the text we are sending it to the frontend now instead of our placeholder.
 
-```js{6,7}
+```js{7:9}
 app.post('/upload', upload.single('file'), (req, res) => {
   const file = req.file;
   if (!file) {
@@ -273,7 +272,7 @@ ${text}
   });
 ```
 
-I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` the directory is where we put the file which is a clone of my blog repository in the `backend` project file structure.
+I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}.md` the directory is where we put the file which is a clone of my blog repository in the `backend` project file structure.
 
 For now, I am just getting the first word as a title for simplicity and generating slug from this word as well. For Gatsby to understand the date, we need to format it `toISOString`. Also, the pattern for a post file name is to include the date and an `.md` extension.
 
@@ -302,7 +301,7 @@ const commitAndPush = async (branchName, commitMessage) => {
 };
 ```
 
-You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to the user to create a pull request. You can also modify this blog to just submit directly to the master, so no need for additional checks. Let's connect this function in our upload endpoint and return the url.
+You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to the user to create a pull request. You can also modify this blog to just submit directly to the master, so no need for additional checks. Let's connect this function in our upload endpoint and return the url. `pfp` corresponds to `post from photo` if you wonder.
 
 ```js
 // fs.writeFile callback
