@@ -168,8 +168,6 @@ $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
 
 #### Vision, get ready!
 
-<iframe src="https://giphy.com/embed/IyiycYppxmoR2GQ0D7" width="480" height="406" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/marvel-mcu-studios-IyiycYppxmoR2GQ0D7">via GIPHY</a></p>
-
 Here I am adding Google Vision and path module to the project. The path module will make it easier for us to handle filenames and extensions.
 
 ```bash
