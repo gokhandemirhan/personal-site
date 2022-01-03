@@ -205,7 +205,9 @@ app.post('/upload', upload.single('file'), (req, res) => {
   });
 });
 ```
+
 #### Testing time
+
 ![](/media/screen-capture-_1_.gif)
 
 It works! Thanks to Vision, we are able to see `Hello world. first blog post from text. Lets see if its working. This is my Lilly` text below the image. Notice how it even read the small red Lilly label on the bottom right of the page.
@@ -213,6 +215,7 @@ It works! Thanks to Vision, we are able to see `Hello world. first blog post fro
 #### Mark my words
 
 Now we are going to create a markdown file with the contents of the extracted text. Gatby uses frontmatter for metadata of the posts. They are essentially a key/value pairs on top of the file.
+
 ```markdown
 ---
 template: post
@@ -259,11 +262,13 @@ app.post('/upload', upload.single('file'), (req, res) => {
     });
   });
 ```
+
 I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` directory is where we put the file which is a clone of my blog repository in `backend` project file structure.
 
 For now, I am just getting the first two words as a title for simplicity, and generating slug from these words as well. For Gatsby to understand the date we need to format it `toISOString`.
 
 #### git pull, branch, add, commit, push
+
 There are two main modules to work with .git from Node.js; `nodegit` and `simple-git`. I've spend enough time with nodegit but coudn't make it read my credentials. I've switched to simple-git later on, and it is pretty simple.
 
 ```bash
@@ -271,6 +276,7 @@ yarn add simple-git
 ```
 
 Quick and dirty function to do basic gitflow and push to a branch with added file.
+
 ```js
 const simpleGit = require('simple-git'); //require simple-git
 const git = simpleGit('./blog/personal-site'); //create a git object from the repository
@@ -285,10 +291,29 @@ const commitAndPush = async (branchName, commitMessage) => {
   return pushResult;
 };
 ```
-You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to user to create a pullrequest. You can also modify this blog to just submit directly to the master, so no need for additional check. I have also added a simple `Uploading...` message using a state hook to frontend.
+
+You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to user to create a pullrequest. You can also modify this blog to just submit directly to the master, so no need for additional check. Lets connect this function in our upload endpoint and return the url.
+
+```js
+// fs.writeFile callback
+() => {
+    commitAndPush(
+        `pfp/${fileName.name}`,
+        `Creating post from ${fileName.name}`
+    ).then((result) => {
+        res.send({ file, text, url: result.remoteMessages.pullRequestUrl });
+    });
+}
+```
+
+I have also added a simple `Uploading...` message using a state hook to frontend.
 
 #### Avengers, Assemble!
 
-Time to see how I've spent my weekend finally. Here is a demo, showing all the steps we covered so far and me creating a pull request.
+Time to see if everything is working well. Here is a demo, showing all the steps we covered so far and me creating a pull request.
 
-You can see the created post here!
+![](/media/screen-capture-4-.gif)
+
+You can see the created [post here](https://www.gokhandemirhan.dev/posts/post-from-photo-Hello-world.)! I hope you enjoyed this post as much as I did. I feel I've also learned a lot. I don't know Ben Stokes personally but I thank him for giving me a weekend project. Please remember to check [his blog post](https://daily.tinyprojects.dev/paper_website).
+
+Thank you for reading.
