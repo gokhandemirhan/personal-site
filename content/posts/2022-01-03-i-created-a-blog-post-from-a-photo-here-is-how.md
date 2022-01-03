@@ -2,7 +2,7 @@
 template: post
 title: I created a blog post from a photo. Here is how...
 slug: blog-post-from-photo
-draft: true
+draft: false
 date: 2022-01-03T19:55:10.860Z
 description: Last week I've come across a blog post by Ben Stokes. He was
   explaining how he build a product that enables users to create a blog post
@@ -10,6 +10,13 @@ description: Last week I've come across a blog post by Ben Stokes. He was
   how I wanted to explore more. After all, what else I can do better on the
   first of the new year anyway?
 category: blogging, web development, proof-of-concept
+tags:
+  - gatsby
+  - vision
+  - google
+  - ocr
+  - git
+  - blog
 ---
 Last week I've come across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He was explaining how he build a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how I wanted to explore more. After all, what else I can do better on the first of the new year anyway?
 
