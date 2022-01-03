@@ -1,6 +1,6 @@
 ---
 template: post
-title: I created a blog post from a photo. Here is how.
+title: I created a blog post from a photo. Here is how...
 slug: blog-post-from-photo
 draft: true
 date: 2022-01-03T19:55:10.860Z
@@ -15,28 +15,28 @@ Last week I've come across a [blog post](https://daily.tinyprojects.dev/paper_we
 
 ### Brainstorming
 
-I want to integrate this into my own blog flow which uses Gatsby, Netlify and Github. Maybe there are better ways but as a prrof-of-concept here are the steps I've decided to take for the prototype:
+I want to integrate this into my own blog flow which uses Gatsby, Netlify, and Github. Maybe there are better ways but as a proof-of-concept here are the steps I've decided to take for the prototype:
 
-* Create an webapp that will post photo
+* Create a web app that will post a photo
 * Create an endpoint to accept photo
 * Save photo to drive
 * Run some sort of OCR (Optical Character Recognition) on it to extract words
 * Create a new markdown file with this content
 * Push this file into Github repo
-* Wait for Netlify to finis the development
+* Wait for Netlify to finish the development
 * Think about if there was a better way to spend 01/01/2022
 
-Looks pretty easy right? At least thats what I've thought, but it took me two days an a dozens of new topics to explore. They also came with new POC (Proof of Concept) ideas at least.
+Looks pretty easy right? At least that's what I've thought, but it took me two days and dozens of new topics to explore. They also came with new POC (Proof of Concept) ideas at least.
 
 ### Frontend
 
-Ideally this will be a mobile/hybrid application that will allow you to take photo and send it to the API, but for the sake of simplicity I've just create a new React application.
+Ideally, this will be a mobile/hybrid application that will allow you to take a photo and send it to the API, but for the sake of simplicity, I've just created a new React application.
 
 ```bash
 create-react-app frontend
 ```
 
-Simple page that has nothing but an input element to upload a photo, and a list to show the uploaded images coming from the API. If you have never used FormData before check line 4 to see how we are appending the chosen file then using POST to send it to the backend.
+A simple page that has nothing but an input element to upload a photo, and a list to show the uploaded images coming from the API. If you have never used FormData before check line 4 to see how we are appending the chosen file then use POST to send it to the backend.
 
 ```js{4}
 const [photos, setPhotos] = useState([]);
@@ -78,9 +78,9 @@ const [photos, setPhotos] = useState([]);
 
 ### Backend
 
-Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a succcess message to the client.
+Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a success message to the client.
 
-\-- GIF HERE --
+<iframe src="https://giphy.com/embed/zQ3Otg91WjqRKHcTUD" width="480" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/nerdist-marvel-tom-hiddleston-loki-zQ3Otg91WjqRKHcTUD">via GIPHY</a></p>
 
 #### Ready, Set, Serve!
 
@@ -93,7 +93,7 @@ yarn init
 yarn add express cors multer
 ```
 
-On a new index.js file, add the following for a simplest endpoint to receive and save a file. Don't forget to create `public` directory on your project as this is the path the files gonna be saved.
+On a new index.js file, add the following for the simplest endpoint to receive and save a file. Don't forget to create a `public` directory on your project as this is the path the files gonna be saved.
 
 ```js{6,7:15,20}
 const express = require('express');
@@ -133,7 +133,7 @@ app.listen(port, () => {
 });
 ```
 
-On the highlighted rows, you can see how to initialize `multer` with the simplest configuration and make it ready. Now it's testing time. I will be uploading following image as I found that it is a testing image for an OCR library.
+On the highlighted rows, you can see how to initialize `multer` with the simplest configuration and make it ready. Now it's testing time. I will be uploading the following image as I found that it is a testing image for an OCR library.
 
 ##### Test image
 
@@ -143,17 +143,17 @@ On the highlighted rows, you can see how to initialize `multer` with the simples
 
 ![](/media/screen-capture.gif)
 
-On the recording it is not showing the file picker popup as it was on my second screen, but I just select the test image and wait. Placing a loader icon here is a good idea!
+On the recording, it is not showing the file picker popup as it was on my second screen, but I just select the test image and wait. Placing a loader icon here is a good idea!
 
 #### Okay Google, can you read this for me?
 
-There are not many OCR libraries around there and the successfull ones are from big companies. First I have tried [tesseractjs](https://github.com/naptha/tesseract.js#tesseractjs) as it is opensource and free but it didn't parse my handwritten note well. The image I was using is actually from their library which works very good, but I think it is better for high quality photos or scans. Here you can see my handwritten note photo which is not really a high quality image (Also realized I made grammer mistakes, :( )
+There are not many OCR libraries around there and the successful ones are from big companies. First I have tried [tesseractjs](https://github.com/naptha/tesseract.js#tesseractjs) as it is open source and free but it didn't parse my handwritten note well. The image I was using is actually from their library which works very well, but I think it is better for high-quality photos or scans. Here you can see my handwritten note photo which is not really a high-quality image (Also realized I made grammar mistakes, :( )
 
 ![](/media/photo_2022-01-01_23-23-11.jpg)
 
-In order to extract text from my photo I've decided to use [Google Vision](https://cloud.google.com/vision). You can see how well it is working by going to the link and using the photo uploader there. Or better, just open your Google Translate or Google Lens application. Have you ever thanked an AI before? I did.
+In order to extract text from my photo, I've decided to use [Google Vision](https://cloud.google.com/vision). You can see how well it is working by going to the link and using the photo uploader there. Or better, just open your Google Translate or Google Lens application. Have you ever thanked an AI before? I did.
 
-Following the [docs](https://cloud.google.com/vision/docs/setup) here, I've setup everything and will be using their Node.js library. I am not going into details of how to setup, but I want to show you how I am making the `service account keys` available to runtime. Running the backend project like shown is the easiest way. Google gives us free credits and 90 days to be able to test Vision, and then it is going to cost money. 
+Following the [docs](https://cloud.google.com/vision/docs/setup) here, I've set up everything and will be using their Node.js library. I am not going into details of how to set up, but I want to show you how I am making the `service account keys` available to the runtime. Running the backend project like shown is the easiest way. Google gives us free credits and 90 days to be able to test Vision, and then it is going to cost money. 
 
 ```bash
 $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
@@ -161,9 +161,9 @@ $ GOOGLE_APPLICATION_CREDENTIALS="./path/to/keys.json" node index.js
 
 #### Vision, get ready!
 
-\-- GIF HERE --
+<iframe src="https://giphy.com/embed/IyiycYppxmoR2GQ0D7" width="480" height="406" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/marvel-mcu-studios-IyiycYppxmoR2GQ0D7">via GIPHY</a></p>
 
-Here I am adding Google Vision and path module to the project. Path module will make it easier for us to handle filenames and extentions.
+Here I am adding Google Vision and path module to the project. The path module will make it easier for us to handle filenames and extensions.
 
 ```bash
 yarn add @google-cloud/vision path
@@ -191,7 +191,7 @@ const googleParse = async (path) => {
 };
 ```
 
-It is pretty easy with Vision as you have seen. Line 4 and 7 do the hardwork for us. Lets call this function from our `upload` endpoint with the filepath. When Vision returns the text we are sending it to frontend now instead of our placeholder.
+It is pretty easy with Vision as you have seen. Line 4 and 7 do the hard work for us. Let's call this function from our `upload` endpoint with the file path. When Vision returns the text we are sending it to the frontend now instead of our placeholder.
 
 ```js{6,7}
 app.post('/upload', upload.single('file'), (req, res) => {
@@ -210,11 +210,11 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 ![](/media/screen-capture-_1_.gif)
 
-It works! Thanks to Vision, we are able to see `Hello world. first blog post from text. Lets see if its working. This is my Lilly` text below the image. Notice how it even read the small red Lilly label on the bottom right of the page.
+It works! Thanks to Vision, we are able to see `Hello world. first blog post from the text. Let's see if it's working. This is my Lilly` text below the image. Notice how it even read the small red Lilly label on the bottom right of the page.
 
 #### Mark my words
 
-Now we are going to create a markdown file with the contents of the extracted text. Gatby uses frontmatter for metadata of the posts. They are essentially a key/value pairs on top of the file.
+Now we are going to create a markdown file with the contents of the extracted text. Gatsby uses frontmatter for the metadata of the posts. They are essentially key/value pairs on top of the file.
 
 ```markdown
 ---
@@ -226,7 +226,7 @@ date: date/of/publish
 ---
 ```
 
-In order to create a file in the file system, we are going to require the `fs` module which is a shorthand for filesystem lol. `writeFile` method expects a directory to put the file, file contents, and a callback function to call when its done. In here our callback is not changed still returning the file and extracted text back to frontend.
+In order to create a file in the file system, we are going to require the `fs` module which is a shorthand for filesystem lol. `writeFile` the method expects a directory to put the file, file contents, and a callback function to call when it's done. In here our callback is not changed still returning the file and extracted text back to the frontend.
 
 ```js{11:25}
 const fs = require('fs');
@@ -239,21 +239,24 @@ app.post('/upload', upload.single('file'), (req, res) => {
     }
     const fileName = path.parse(file.filename);
     googleParse('./public/' + fileName.base).then((text) => {
-    const content = text.split(' ');
-    const title = `${content[0]} ${content[1]}`;
-    const slug = title.join('-');
-    const date = new Date();
+    const content = text.split(/\r\n|\r|\n/);
+    const title = content[0];
+    const slug = `post-from-photo-${content[0].split(' ').join('-')}`;
+    const isoDate = new Date().toISOString();
+    const idx = isoDate.indexOf('T');
+    const filePrefix = isoDate.substring(0, idx);
 
       fs.writeFile(
-        `./blog/personal-site/content/posts/${fileName.name}`,
-        `---
-         template: post
-         title: ${title.toUpperCase()}
-         slug: ${slug}
-         draft: false
-         date: ${date.toISOString()}
-        ---
-     ${text} 
+        `./blog/personal-site/content/posts/${filePrefix}-${fileName.name}.md`,
+        `
+---
+template: post
+title: ${title.toUpperCase()}
+slug: ${slug}
+draft: false
+date: ${isoDate}
+---
+${text}
       `,
         () => {
             res.send({ file, text });
@@ -263,19 +266,19 @@ app.post('/upload', upload.single('file'), (req, res) => {
   });
 ```
 
-I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` directory is where we put the file which is a clone of my blog repository in `backend` project file structure.
+I am making use of [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) here to create the content of the file. Notice also that `./blog/personal-site/content/posts/${fileName.name}` the directory is where we put the file which is a clone of my blog repository in the `backend` project file structure.
 
-For now, I am just getting the first two words as a title for simplicity, and generating slug from these words as well. For Gatsby to understand the date we need to format it `toISOString`.
+For now, I am just getting the first word as a title for simplicity and generating slug from this word as well. For Gatsby to understand the date, we need to format it `toISOString`. Also, the pattern for a post file name is to include the date and an `.md` extension.
 
 #### git pull, branch, add, commit, push
 
-There are two main modules to work with .git from Node.js; `nodegit` and `simple-git`. I've spend enough time with nodegit but coudn't make it read my credentials. I've switched to simple-git later on, and it is pretty simple.
+There are two main modules to work with .git from Node.js; `nodegit` and `simple-git`. I've spent enough time with nodegit but couldn't make it read my credentials. I've switched to simple-git later on, and it is pretty simple.
 
 ```bash
 yarn add simple-git
 ```
 
-Quick and dirty function to do basic gitflow and push to a branch with added file.
+Quick and dirty function to do basic gitflow and push to a branch with the added file.
 
 ```js
 const simpleGit = require('simple-git'); //require simple-git
@@ -292,7 +295,7 @@ const commitAndPush = async (branchName, commitMessage) => {
 };
 ```
 
-You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to user to create a pullrequest. You can also modify this blog to just submit directly to the master, so no need for additional check. Lets connect this function in our upload endpoint and return the url.
+You can see how simple-git is working here. Using the same options git has. Returning the push result to show a link to the user to create a pull request. You can also modify this blog to just submit directly to the master, so no need for additional checks. Let's connect this function in our upload endpoint and return the url.
 
 ```js
 // fs.writeFile callback
@@ -306,7 +309,7 @@ You can see how simple-git is working here. Using the same options git has. Retu
 }
 ```
 
-I have also added a simple `Uploading...` message using a state hook to frontend.
+I have also added a simple `Uploading...` message using a state hook to the frontend.
 
 #### Avengers, Assemble!
 
@@ -315,5 +318,7 @@ Time to see if everything is working well. Here is a demo, showing all the steps
 ![](/media/screen-capture-4-.gif)
 
 You can see the created [post here](https://www.gokhandemirhan.dev/posts/post-from-photo-Hello-world.)! I hope you enjoyed this post as much as I did. I feel I've also learned a lot. I don't know Ben Stokes personally but I thank him for giving me a weekend project. Please remember to check [his blog post](https://daily.tinyprojects.dev/paper_website).
+
+<iframe src="https://giphy.com/embed/V9xDjY81pxtglB6KtT" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/disneyplus-V9xDjY81pxtglB6KtT">via GIPHY</a></p>
 
 Thank you for reading.
