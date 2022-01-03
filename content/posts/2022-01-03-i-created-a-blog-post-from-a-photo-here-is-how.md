@@ -18,11 +18,11 @@ tags:
   - git
   - blog
 ---
-Last week I've come across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He was explaining how he build a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how I wanted to explore more. After all, what else I can do better on the first of the new year anyway?
+Last week I came across a [blog post](https://daily.tinyprojects.dev/paper_website) by Ben Stokes. He explains how he built a [product](https://paperwebsite.com/) that enables users to create a blog post from a photo taken by their mobile phone. Although he gives a brief idea of how he did it, I wanted to explore it myself. After all, what else I can do better on the first day of the new year anyway
 
 ### Brainstorming
 
-I want to integrate this into my own blog flow which uses Gatsby, Netlify, and Github. Maybe there are better ways but as a proof-of-concept here are the steps I've decided to take for the prototype:
+I want to integrate this into my blog flow which uses Gatsby, Netlify, and Github. Maybe there are better ways but as a proof-of-concept here are the steps I've decided to take for the prototype:
 
 * Create a web app that will post a photo
 * Create an endpoint to accept photo
@@ -85,9 +85,10 @@ const [photos, setPhotos] = useState([]);
 
 ### Backend
 
-Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a success message to the client.
+Here is where we make our hands dirty. Here is where we get the file, save it, run OCR on it, create a new file, commit, push and finally return a success message to the client. Oh boy, there are a lot of places this can break.
 
 <iframe src="https://giphy.com/embed/zQ3Otg91WjqRKHcTUD" width="480" height="199" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/nerdist-marvel-tom-hiddleston-loki-zQ3Otg91WjqRKHcTUD">via GIPHY</a></p>
+
 
 #### Ready, Set, Serve!
 
